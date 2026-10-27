@@ -117,10 +117,23 @@ class FirebaseBackend implements Backend {
 
   @override
   Future<void> saveSong(Song song) async {
-    if (song.id.isEmpty) {
-      await _songs.add(song.toMap());
-    } else {
-      await _songs.doc(song.id).set(song.toMap());
+    try {
+      if (song.id.isEmpty) {
+        await _songs.add(song.toMap()).timeout(
+          const Duration(seconds: 25),
+        );
+      } else {
+        await _songs.doc(song.id).set(song.toMap()).timeout(
+          const Duration(seconds: 25),
+        );
+      }
+    } on FirebaseException catch (e) {
+      debugPrint('FIREBASE ERROR: ${e.code}');
+      debugPrint('FIREBASE MESSAGE: ${e.message}');
+      rethrow;
+    } on TimeoutException {
+      debugPrint('FIREBASE ERROR: timeout');
+      rethrow;
     }
   }
 

@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Canciones con Historia – Documento del proyecto</title>
+<style>
+  @page { size: Letter; margin: 2.2cm 2cm 2.2cm 2cm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Calibri, Arial, sans-serif; font-size: 10.5pt; line-height: 1.5; color: #1d1d1f; margin: 0; }
+  h1 { font-size: 20pt; color: #8e1b1b; margin: 0 0 6pt; border-bottom: 2px solid #8e1b1b; padding-bottom: 4pt; page-break-after: avoid; }
+  h2 { font-size: 13.5pt; color: #8e1b1b; margin: 18pt 0 6pt; page-break-after: avoid; }
+  h3 { font-size: 11.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 7pt; text-align: justify; }
+  ul, ol { margin: 0 0 8pt; padding-left: 18pt; }
+  li { margin-bottom: 2pt; }
+  code { font-family: Consolas, "Courier New", monospace; font-size: 9pt; background: #f3eeee; padding: 0 3px; border-radius: 3px; }
+  pre { font-family: Consolas, monospace; font-size: 8.6pt; background: #f6f3f3; border: 1px solid #e2d6d6; border-left: 3px solid #8e1b1b; padding: 7pt 9pt; white-space: pre-wrap; page-break-inside: avoid; margin: 4pt 0 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 12pt; font-size: 9.4pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th { background: #8e1b1b; color: #fff; text-align: left; padding: 5pt 6pt; font-weight: 600; }
+  td { border-bottom: 1px solid #e3dada; padding: 4pt 6pt; vertical-align: top; }
+  tr:nth-child(even) td { background: #faf6f6; }
+  .section { page-break-before: always; }
+  .figure { text-align: center; margin: 8pt 0 12pt; page-break-inside: avoid; }
+  .figure svg { max-width: 100%; height: auto; }
+  .caption { font-size: 9pt; color: #555; font-style: italic; margin-top: 3pt; text-align: center; }
+  .note { background: #fdf3e6; border-left: 3px solid #d98b1c; padding: 6pt 9pt; font-size: 9.6pt; margin: 6pt 0 10pt; page-break-inside: avoid; }
+  /* Portada */
+  .cover { height: 23cm; display: flex; flex-direction: column; justify-content: space-between; text-align: center; }
+  .cover .inst { font-size: 13pt; font-weight: 600; letter-spacing: .5px; margin-top: 1cm; }
+  .cover .title { font-size: 30pt; font-weight: 700; color: #8e1b1b; margin: 0; line-height: 1.15; }
+  .cover .subtitle { font-size: 13pt; color: #444; margin-top: 8pt; }
+  .cover .bar { width: 120px; height: 4px; background: #8e1b1b; margin: 18pt auto; }
+  .cover table { width: 70%; margin: 0 auto; font-size: 11pt; }
+  .cover td { border: none; background: none !important; padding: 4pt 6pt; }
+  .cover td:first-child { text-align: right; font-weight: 600; width: 40%; }
+  .cover td:last-child { text-align: left; border-bottom: 1px solid #999; }
+  .toc ol { font-size: 11pt; line-height: 1.9; }
+</style>
+</head>
+<body>
+
+<!-- ============================ PORTADA ============================ -->
+<div class="cover">
+  <div class="inst">[Nombre de la institución]<br><span style="font-weight:400;font-size:11pt">[Carrera / Materia]</span></div>
+  <div>
+    <p class="title" style="text-align:center">Canciones con Historia</p>
+    <div class="subtitle">Aplicación móvil individual<br>Documento de planeación, arquitectura y configuración del entorno</div>
+    <div class="bar"></div>
+    <div class="subtitle" style="font-size:11pt">Caso de estudio · Metodología ágil Kanban · Flutter + Firebase</div>
+  </div>
+  <table>
+    <tr><td>Alumno:</td><td>&nbsp;</td></tr>
+    <tr><td>Matrícula:</td><td>&nbsp;</td></tr>
+    <tr><td>Docente:</td><td>&nbsp;</td></tr>
+    <tr><td>Grupo:</td><td>&nbsp;</td></tr>
+    <tr><td>Fecha:</td><td>Octubre de 2026</td></tr>
+  </table>
+</div>
+
+<!-- ============================ ÍNDICE ============================ -->
+<div class="section toc">
+  <h1>Índice</h1>
+  <ol>
+    <li>Caso de estudio</li>
+    <li>Plan del proceso de desarrollo móvil (Kanban)</li>
+    <li>Justificación de la arquitectura</li>
+    <li>Diagrama de la arquitectura</li>
+    <li>Propuesta de patrones de diseño</li>
+    <li>Justificación de los frameworks de desarrollo móvil</li>
+    <li>Esquema de pruebas</li>
+    <li>Estrategia de versionamiento</li>
+    <li>Configuración del entorno
+      <ol type="a"><li>Lista de herramientas utilizadas</li><li>Parámetros de configuración</li></ol>
+    </li>
+    <li>Conclusiones</li>
+  </ol>
+</div>
+
+<!-- ============================ 1. CASO DE ESTUDIO ============================ -->
+<div class="section">
+  <h1>1. Caso de estudio</h1>
+
+  <h2>1.1 Contexto</h2>
+  <p>Muchas canciones populares nacieron como respuesta a sucesos trágicos: guerras, atentados, represión o injusticias sociales. Con frecuencia su mensaje se expresa con metáforas o en doble sentido, por lo que quien las escucha no siempre conoce la historia que hay detrás. Un ejemplo es <i>“Burka azul”</i>, que hace referencia a la situación de Afganistán mediante dobles sentidos, o <i>“Zombie”</i> de The Cranberries, escrita tras el atentado de Warrington de 1993.</p>
+
+  <h2>1.2 Problema</h2>
+  <p>La información sobre el contexto histórico de estas canciones está dispersa en artículos, entrevistas y videos. No existe un espacio que reúna en un mismo lugar la canción, su letra, el suceso que representa, la interpretación de lo que dice “entre líneas” y el lugar donde se originó.</p>
+
+  <h2>1.3 Solución propuesta</h2>
+  <p><b>Canciones con Historia</b> es una aplicación móvil para Android, desarrollada con Flutter y Firebase, que funciona como catálogo curado de canciones con contexto histórico. El acceso se realiza con la cuenta de Google y existen dos roles:</p>
+  <table>
+    <tr><th style="width:22%">Rol</th><th>Funcionalidades</th></tr>
+    <tr><td><b>Usuario</b></td><td>Iniciar sesión con Google · consultar y buscar canciones (por título, banda o suceso) · escuchar la canción (reproductor integrado o enlace a YouTube/Spotify) · leer la letra, el contexto del suceso y el significado oculto · agregar y quitar canciones de favoritos · ver en un mapa el lugar donde se creó la canción.</td></tr>
+    <tr><td><b>Administrador</b></td><td>Todo lo anterior, más: agregar canciones mediante un formulario (nombre, banda, año, género, imagen, suceso, contexto, doble sentido, letra, enlaces de audio y ubicación en el mapa) · editar canciones · eliminar canciones.</td></tr>
+  </table>
+
+  <h2>1.4 Alcance y restricciones</h2>
+  <ul>
+    <li>Plataforma objetivo: Android (el código Flutter permite compilar también para iOS y Web en el futuro).</li>
+    <li>Proyecto individual con presupuesto cero: se usan únicamente servicios gratuitos (plan Spark de Firebase, mapas de OpenStreetMap).</li>
+    <li>Los administradores se identifican por una lista de correos autorizados, validada tanto en la app como en las reglas de seguridad del servidor.</li>
+    <li>Por derechos de autor, la app no aloja archivos de audio comerciales: reproduce enlaces directos o redirige a plataformas oficiales.</li>
+  </ul>
+</div>
+
+<!-- ============================ 2. KANBAN ============================ -->
+<div class="section">
+  <h1>2. Plan del proceso de desarrollo móvil (Kanban)</h1>
+
+  <h2>2.1 Justificación de la metodología</h2>
+  <p>Se seleccionó <b>Kanban</b> porque el proyecto es individual: no hay un equipo que requiera ceremonias de Scrum (Sprint Planning, Daily, roles de Scrum Master y Product Owner). Kanban permite un flujo continuo de trabajo, visualizar el avance de cada funcionalidad, limitar el trabajo en curso para terminar tareas antes de empezar otras y adaptarse a cambios de prioridad (por ejemplo, la configuración de Firebase surgió como tarea bloqueante a mitad del desarrollo).</p>
+
+  <h2>2.2 Principios aplicados</h2>
+  <ol>
+    <li><b>Visualizar el flujo:</b> tablero con columnas que representan cada etapa del trabajo.</li>
+    <li><b>Limitar el trabajo en curso (WIP):</b> máximo 2 tarjetas en “En desarrollo” y 2 en “Pruebas”.</li>
+    <li><b>Gestionar el flujo:</b> medir cuánto tarda cada tarjeta en terminarse y detectar cuellos de botella.</li>
+    <li><b>Políticas explícitas:</b> cada columna tiene una “definición de terminado”.</li>
+    <li><b>Mejora continua:</b> revisión semanal del tablero para ajustar prioridades.</li>
+  </ol>
+
+  <h2>2.3 Tablero Kanban</h2>
+  <div class="figure">
+  <svg viewBox="0 0 760 330" width="760" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial" font-size="10">
+    <g>
+      <!-- columnas -->
+      <rect x="5" y="5" width="142" height="320" rx="6" fill="#f2f2f2"/>
+      <rect x="157" y="5" width="142" height="320" rx="6" fill="#f2f2f2"/>
+      <rect x="309" y="5" width="142" height="320" rx="6" fill="#fdecec"/>
+      <rect x="461" y="5" width="142" height="320" rx="6" fill="#fdf3e6"/>
+      <rect x="613" y="5" width="142" height="320" rx="6" fill="#eaf5ec"/>
+      <text x="76" y="24" text-anchor="middle" font-weight="700" font-size="11">Backlog</text>
+      <text x="228" y="24" text-anchor="middle" font-weight="700" font-size="11">Por hacer</text>
+      <text x="380" y="24" text-anchor="middle" font-weight="700" font-size="11">En desarrollo (WIP 2)</text>
+      <text x="532" y="24" text-anchor="middle" font-weight="700" font-size="11">Pruebas (WIP 2)</text>
+      <text x="684" y="24" text-anchor="middle" font-weight="700" font-size="11">Terminado</text>
+    </g>
+    <g fill="#fff" stroke="#c9c9c9">
+      <rect x="14" y="36" width="124" height="34" rx="4"/><rect x="14" y="76" width="124" height="34" rx="4"/><rect x="14" y="116" width="124" height="34" rx="4"/>
+      <rect x="166" y="36" width="124" height="34" rx="4"/><rect x="166" y="76" width="124" height="34" rx="4"/>
+      <rect x="318" y="36" width="124" height="34" rx="4" stroke="#c62828"/><rect x="318" y="76" width="124" height="34" rx="4" stroke="#c62828"/>
+      <rect x="470" y="36" width="124" height="34" rx="4" stroke="#d98b1c"/>
+      <rect x="622" y="36" width="124" height="34" rx="4" stroke="#2e7d32"/><rect x="622" y="76" width="124" height="34" rx="4" stroke="#2e7d32"/><rect x="622" y="116" width="124" height="34" rx="4" stroke="#2e7d32"/><rect x="622" y="156" width="124" height="34" rx="4" stroke="#2e7d32"/><rect x="622" y="196" width="124" height="34" rx="4" stroke="#2e7d32"/><rect x="622" y="236" width="124" height="34" rx="4" stroke="#2e7d32"/><rect x="622" y="276" width="124" height="34" rx="4" stroke="#2e7d32"/>
+    </g>
+    <g fill="#222">
+      <text x="20" y="51">Publicar en Play Store</text><text x="20" y="64" fill="#777">Mejora futura</text>
+      <text x="20" y="91">Notificaciones</text><text x="20" y="104" fill="#777">Mejora futura</text>
+      <text x="20" y="131">Versión iOS</text><text x="20" y="144" fill="#777">Mejora futura</text>
+      <text x="172" y="51">Pruebas de widgets</text><text x="172" y="64" fill="#777">Calidad</text>
+      <text x="172" y="91">Firma de release</text><text x="172" y="104" fill="#777">Despliegue</text>
+      <text x="324" y="51">Carga de contenido</text><text x="324" y="64" fill="#777">Canciones reales</text>
+      <text x="324" y="91">Pruebas de integración</text><text x="324" y="104" fill="#777">Calidad</text>
+      <text x="476" y="51">Reglas de Firestore</text><text x="476" y="64" fill="#777">Seguridad</text>
+      <text x="628" y="51">Proyecto Flutter base</text>
+      <text x="628" y="91">Login con Google</text>
+      <text x="628" y="131">Listado y búsqueda</text>
+      <text x="628" y="171">Detalle + reproductor</text>
+      <text x="628" y="211">Favoritos</text>
+      <text x="628" y="251">Formulario admin (CRUD)</text>
+      <text x="628" y="291">Mapa de ubicaciones</text>
+    </g>
+  </svg>
+  <div class="caption">Figura 1. Tablero Kanban del proyecto (estado representativo durante la fase de pruebas).</div>
+  </div>
+
+  <h3>Políticas de cada columna (definición de terminado)</h3>
+  <table>
+    <tr><th style="width:20%">Columna</th><th>Criterio para mover la tarjeta a la siguiente columna</th></tr>
+    <tr><td>Backlog</td><td>Idea o requerimiento registrado con una descripción breve.</td></tr>
+    <tr><td>Por hacer</td><td>Tarjeta priorizada, con criterios de aceptación definidos y sin dependencias bloqueantes.</td></tr>
+    <tr><td>En desarrollo</td><td>Código escrito, <code>flutter analyze</code> sin errores y cambios guardados en una rama de Git.</td></tr>
+    <tr><td>Pruebas</td><td>Pruebas unitarias en verde y caso de prueba manual ejecutado en el teléfono físico.</td></tr>
+    <tr><td>Terminado</td><td>Rama integrada a <code>develop</code>, funcionalidad verificada en el dispositivo y documentada.</td></tr>
+  </table>
+
+  <h2>2.4 Backlog del producto (tarjetas)</h2>
+  <table>
+    <tr><th style="width:6%">ID</th><th style="width:28%">Tarjeta</th><th>Criterio de aceptación</th><th style="width:11%">Prioridad</th></tr>
+    <tr><td>K-01</td><td>Configurar proyecto Flutter</td><td>La app compila e instala en el teléfono físico Android.</td><td>Alta</td></tr>
+    <tr><td>K-02</td><td>Modelo de datos <code>Song</code></td><td>Se serializa y deserializa sin pérdida de datos (prueba unitaria).</td><td>Alta</td></tr>
+    <tr><td>K-03</td><td>Configurar Firebase</td><td>Proyecto creado, <code>google-services.json</code> agregado, huella SHA-1 registrada.</td><td>Alta</td></tr>
+    <tr><td>K-04</td><td>Inicio de sesión con Google</td><td>El usuario entra con su cuenta; los correos autorizados obtienen rol de administrador.</td><td>Alta</td></tr>
+    <tr><td>K-05</td><td>Listado y búsqueda</td><td>Se listan las canciones en tiempo real y se filtran por título, banda o suceso.</td><td>Alta</td></tr>
+    <tr><td>K-06</td><td>Detalle de canción</td><td>Muestra imagen, suceso, contexto, doble sentido, letra y ubicación.</td><td>Alta</td></tr>
+    <tr><td>K-07</td><td>Reproductor de audio</td><td>Reproduce/pausa un enlace mp3 y abre enlaces de YouTube/Spotify.</td><td>Media</td></tr>
+    <tr><td>K-08</td><td>Favoritos</td><td>El usuario marca y desmarca favoritos; persisten al cerrar sesión.</td><td>Alta</td></tr>
+    <tr><td>K-09</td><td>Formulario de administrador</td><td>Valida campos obligatorios, permite imagen (galería/cámara) y ubicación en mapa; agrega, edita y elimina.</td><td>Alta</td></tr>
+    <tr><td>K-10</td><td>Mapa de canciones</td><td>Todas las canciones con ubicación aparecen como marcadores.</td><td>Media</td></tr>
+    <tr><td>K-11</td><td>Reglas de seguridad de Firestore</td><td>Solo administradores escriben canciones; cada usuario solo accede a sus favoritos.</td><td>Alta</td></tr>
+    <tr><td>K-12</td><td>Pruebas de widgets e integración</td><td>Flujos principales cubiertos con pruebas automatizadas.</td><td>Media</td></tr>
+    <tr><td>K-13</td><td>Build de release y firma</td><td>APK/AAB firmado con clave propia y versión incrementada.</td><td>Media</td></tr>
+  </table>
+
+  <h2>2.5 Cronograma estimado</h2>
+  <p>Kanban no trabaja con iteraciones fijas; sin embargo, para fines de planeación se agrupan las tarjetas en fases semanales y se realiza una revisión del tablero al final de cada semana.</p>
+  <table>
+    <tr><th style="width:14%">Semana</th><th style="width:30%">Fase</th><th>Tarjetas</th></tr>
+    <tr><td>1</td><td>Análisis y configuración</td><td>Caso de estudio, requerimientos, K-01, K-02</td></tr>
+    <tr><td>2</td><td>Autenticación y datos</td><td>K-03, K-04, K-11</td></tr>
+    <tr><td>3</td><td>Funcionalidad del usuario</td><td>K-05, K-06, K-07, K-08</td></tr>
+    <tr><td>4</td><td>Funcionalidad del administrador</td><td>K-09, K-10</td></tr>
+    <tr><td>5</td><td>Pruebas y estabilización</td><td>K-12, corrección de defectos, carga de contenido</td></tr>
+    <tr><td>6</td><td>Entrega</td><td>K-13, documentación final y presentación</td></tr>
+  </table>
+
+  <h2>2.6 Métricas de seguimiento</h2>
+  <ul>
+    <li><b>Lead time:</b> tiempo desde que la tarjeta entra a “Por hacer” hasta “Terminado”.</li>
+    <li><b>Cycle time:</b> tiempo que la tarjeta permanece en “En desarrollo” y “Pruebas”.</li>
+    <li><b>Throughput:</b> número de tarjetas terminadas por semana.</li>
+    <li><b>Tarjetas bloqueadas:</b> se marcan en rojo con la causa (ej. “falta habilitar Google en Firebase”).</li>
+  </ul>
+  <p>Herramienta propuesta para el tablero: <b>GitHub Projects</b> (vista de tablero), ya que se integra con el repositorio y permite vincular cada tarjeta con su rama y sus commits. Alternativa: Trello.</p>
+</div>
+
+<!-- ============================ 3. ARQUITECTURA ============================ -->
+<div class="section">
+  <h1>3. Justificación de la arquitectura</h1>
+
+  <h2>3.1 Arquitectura seleccionada</h2>
+  <p>Se adoptó una <b>arquitectura cliente – Backend as a Service (BaaS)</b>, y dentro de la app una <b>arquitectura en capas</b> inspirada en MVVM:</p>
+  <table>
+    <tr><th style="width:24%">Capa</th><th style="width:30%">Ubicación en el código</th><th>Responsabilidad</th></tr>
+    <tr><td><b>Presentación (Vista)</b></td><td><code>lib/screens/</code>, <code>lib/widgets/</code></td><td>Pantallas y componentes visuales. No acceden directamente a Firebase.</td></tr>
+    <tr><td><b>Estado (ViewModel)</b></td><td><code>lib/state/app_state.dart</code></td><td>Mantiene el usuario actual, la lista de canciones y los favoritos; notifica a la vista cuando cambian.</td></tr>
+    <tr><td><b>Datos (Repositorio)</b></td><td><code>lib/services/backend.dart</code></td><td>Interfaz <code>Backend</code> con dos implementaciones: <code>FirebaseBackend</code> y <code>LocalBackend</code> (modo demo).</td></tr>
+    <tr><td><b>Modelo</b></td><td><code>lib/models/song.dart</code></td><td>Entidades <code>Song</code> y <code>AppUser</code>, y su conversión a/desde mapas.</td></tr>
+    <tr><td><b>Servicios externos</b></td><td>Nube</td><td>Firebase Authentication, Cloud Firestore, teselas de OpenStreetMap, servidores de audio y YouTube/Spotify.</td></tr>
+  </table>
+
+  <h2>3.2 Razones de la elección</h2>
+  <ul>
+    <li><b>Sin servidor propio:</b> Firebase resuelve autenticación, base de datos y seguridad. Para un proyecto individual elimina el costo de programar, hospedar y mantener una API.</li>
+    <li><b>Tiempo real:</b> Firestore envía los cambios al instante. Cuando un administrador agrega una canción, aparece en los teléfonos de todos los usuarios sin recargar.</li>
+    <li><b>Seguridad del lado del servidor:</b> los permisos no dependen solo de ocultar botones en la app; las <i>reglas de Firestore</i> validan en el servidor que solo los correos autorizados puedan escribir canciones.</li>
+    <li><b>Separación de responsabilidades:</b> las pantallas no saben si los datos vienen de Firebase o del almacenamiento local. Esto facilita las pruebas y permite cambiar de proveedor modificando una sola capa.</li>
+    <li><b>Modo demo (tolerancia a fallos de configuración):</b> si Firebase no está configurado, la app arranca con <code>LocalBackend</code> y guarda datos en el teléfono. Esto permitió desarrollar y probar la interfaz antes de tener el proyecto de Firebase.</li>
+    <li><b>Costo cero:</b> las imágenes se comprimen (máx. 900 px, calidad 70 %) y se guardan en Firestore como Base64, evitando Firebase Storage, que requiere el plan de pago. Los mapas usan OpenStreetMap, que no requiere clave de API.</li>
+  </ul>
+
+  <h2>3.3 Modelo de datos (Cloud Firestore)</h2>
+<pre>songs/{songId}
+  title, artist, year, genre        → datos de la canción
+  event, history, meaning, lyrics   → suceso, contexto, doble sentido, letra
+  imageBase64                       → imagen comprimida
+  audioUrl, externalUrl             → mp3 directo / YouTube o Spotify
+  placeName, latitude, longitude    → ubicación donde se creó
+  createdAt                         → fecha de alta (orden del listado)
+
+users/{uid}
+  name, email, lastLogin
+  favorites: [songId, songId, ...]</pre>
+</div>
+
+<!-- ============================ 4. DIAGRAMA ============================ -->
+<div class="section">
+  <h1>4. Diagrama de la arquitectura</h1>
+  <div class="figure">
+  <svg viewBox="0 0 720 560" width="720" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial" font-size="11">
+    <defs>
+      <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#555"/></marker>
+    </defs>
+    <!-- Dispositivo -->
+    <rect x="10" y="10" width="440" height="540" rx="14" fill="#fbf7f7" stroke="#8e1b1b" stroke-width="1.6"/>
+    <text x="230" y="32" text-anchor="middle" font-weight="700" font-size="13" fill="#8e1b1b">Aplicación Flutter (teléfono Android)</text>
+
+    <!-- Presentación -->
+    <rect x="28" y="46" width="404" height="120" rx="8" fill="#fff" stroke="#bbb"/>
+    <text x="40" y="64" font-weight="700">Capa de presentación</text>
+    <g fill="#fdecec" stroke="#c62828">
+      <rect x="40" y="74" width="120" height="34" rx="5"/><rect x="170" y="74" width="120" height="34" rx="5"/><rect x="300" y="74" width="120" height="34" rx="5"/>
+      <rect x="40" y="118" width="120" height="34" rx="5"/><rect x="170" y="118" width="120" height="34" rx="5"/><rect x="300" y="118" width="120" height="34" rx="5"/>
+    </g>
+    <g text-anchor="middle">
+      <text x="100" y="95">LoginScreen</text><text x="230" y="95">HomeScreen</text><text x="360" y="95">SongDetailScreen</text>
+      <text x="100" y="139">SongFormScreen</text><text x="230" y="139">MapScreen</text><text x="360" y="139">Widgets reutilizables</text>
+    </g>
+
+    <!-- Estado -->
+    <rect x="28" y="196" width="404" height="70" rx="8" fill="#fff" stroke="#bbb"/>
+    <text x="40" y="214" font-weight="700">Capa de estado (ViewModel)</text>
+    <rect x="120" y="222" width="220" height="34" rx="5" fill="#e8eef9" stroke="#3b5ba5"/>
+    <text x="230" y="243" text-anchor="middle">AppState (ChangeNotifier + Provider)</text>
+
+    <!-- Datos -->
+    <rect x="28" y="296" width="404" height="130" rx="8" fill="#fff" stroke="#bbb"/>
+    <text x="40" y="314" font-weight="700">Capa de datos (Repositorio)</text>
+    <rect x="130" y="322" width="200" height="34" rx="5" fill="#eaf5ec" stroke="#2e7d32"/>
+    <text x="230" y="343" text-anchor="middle">«interfaz» Backend</text>
+    <rect x="40" y="380" width="170" height="34" rx="5" fill="#eaf5ec" stroke="#2e7d32"/>
+    <text x="125" y="401" text-anchor="middle">LocalBackend (demo)</text>
+    <rect x="250" y="380" width="170" height="34" rx="5" fill="#eaf5ec" stroke="#2e7d32"/>
+    <text x="335" y="401" text-anchor="middle">FirebaseBackend</text>
+    <path d="M125,380 L200,356" stroke="#2e7d32" fill="none" stroke-dasharray="4 3"/>
+    <path d="M335,380 L260,356" stroke="#2e7d32" fill="none" stroke-dasharray="4 3"/>
+
+    <!-- Modelo -->
+    <rect x="28" y="452" width="404" height="80" rx="8" fill="#fff" stroke="#bbb"/>
+    <text x="40" y="470" font-weight="700">Modelo</text>
+    <rect x="70" y="480" width="140" height="34" rx="5" fill="#f4f0e2" stroke="#9a7b1c"/>
+    <text x="140" y="501" text-anchor="middle">Song</text>
+    <rect x="250" y="480" width="140" height="34" rx="5" fill="#f4f0e2" stroke="#9a7b1c"/>
+    <text x="320" y="501" text-anchor="middle">AppUser</text>
+
+    <!-- flechas internas -->
+    <line x1="230" y1="166" x2="230" y2="194" stroke="#555" marker-end="url(#a)"/>
+    <text x="238" y="184" font-size="9.5" fill="#555">eventos / lectura de estado</text>
+    <line x1="230" y1="266" x2="230" y2="320" stroke="#555" marker-end="url(#a)"/>
+    <text x="238" y="290" font-size="9.5" fill="#555">llamadas y Streams</text>
+    <line x1="230" y1="426" x2="230" y2="478" stroke="#555" marker-end="url(#a)"/>
+
+    <!-- Servicios externos (arriba, junto a la capa de presentación) -->
+    <rect x="480" y="10" width="230" height="200" rx="14" fill="#f2f6fb" stroke="#3b5ba5" stroke-width="1.6"/>
+    <text x="595" y="32" text-anchor="middle" font-weight="700" font-size="13" fill="#3b5ba5">Servicios externos</text>
+    <rect x="500" y="46" width="190" height="40" rx="6" fill="#fff" stroke="#3b5ba5"/>
+    <text x="595" y="71" text-anchor="middle">OpenStreetMap (mapas)</text>
+    <rect x="500" y="98" width="190" height="40" rx="6" fill="#fff" stroke="#3b5ba5"/>
+    <text x="595" y="123" text-anchor="middle">Servidor de audio (mp3)</text>
+    <rect x="500" y="150" width="190" height="40" rx="6" fill="#fff" stroke="#3b5ba5"/>
+    <text x="595" y="175" text-anchor="middle">YouTube / Spotify</text>
+    <path d="M432,106 L462,106" stroke="#3b5ba5" fill="none" stroke-width="1.3" stroke-dasharray="5 3"/>
+    <path d="M462,66 L462,170" stroke="#3b5ba5" fill="none" stroke-width="1.3" stroke-dasharray="5 3"/>
+    <path d="M462,66 L498,66" stroke="#3b5ba5" fill="none" stroke-width="1.3" stroke-dasharray="5 3" marker-end="url(#a)"/>
+    <path d="M462,118 L498,118" stroke="#3b5ba5" fill="none" stroke-width="1.3" stroke-dasharray="5 3" marker-end="url(#a)"/>
+    <path d="M462,170 L498,170" stroke="#3b5ba5" fill="none" stroke-width="1.3" stroke-dasharray="5 3" marker-end="url(#a)"/>
+
+    <!-- Firebase (abajo, junto a la capa de datos) -->
+    <rect x="480" y="232" width="230" height="318" rx="14" fill="#fff8e8" stroke="#d98b1c" stroke-width="1.6"/>
+    <text x="595" y="254" text-anchor="middle" font-weight="700" font-size="13" fill="#a8650e">Firebase (Google Cloud)</text>
+    <rect x="500" y="270" width="190" height="60" rx="6" fill="#fff" stroke="#d98b1c"/>
+    <text x="595" y="295" text-anchor="middle" font-weight="600">Authentication</text>
+    <text x="595" y="313" text-anchor="middle" font-size="10">Proveedor: Google</text>
+    <rect x="500" y="350" width="190" height="80" rx="6" fill="#fff" stroke="#d98b1c"/>
+    <text x="595" y="374" text-anchor="middle" font-weight="600">Cloud Firestore</text>
+    <text x="595" y="392" text-anchor="middle" font-size="10">colecciones: songs, users</text>
+    <text x="595" y="408" text-anchor="middle" font-size="10">tiempo real</text>
+    <rect x="500" y="450" width="190" height="80" rx="6" fill="#fff" stroke="#d98b1c" stroke-dasharray="4 3"/>
+    <text x="595" y="474" text-anchor="middle" font-weight="600">Reglas de seguridad</text>
+    <text x="595" y="492" text-anchor="middle" font-size="10">admins: escritura de songs</text>
+    <text x="595" y="508" text-anchor="middle" font-size="10">usuario: solo su documento</text>
+    <path d="M595,430 L595,448" stroke="#d98b1c" stroke-width="1.2" marker-end="url(#a)"/>
+    <path d="M420,397 L462,397" stroke="#d98b1c" fill="none" stroke-width="1.5"/>
+    <path d="M462,300 L462,397" stroke="#d98b1c" fill="none" stroke-width="1.5"/>
+    <path d="M462,300 L498,300" stroke="#d98b1c" fill="none" stroke-width="1.5" marker-end="url(#a)"/>
+    <path d="M462,390 L498,390" stroke="#d98b1c" fill="none" stroke-width="1.5" marker-end="url(#a)"/>
+    <text x="473" y="350" font-size="9.5" fill="#a8650e" text-anchor="middle" transform="rotate(-90 473 350)">HTTPS</text>
+  </svg>
+  <div class="caption">Figura 2. Arquitectura en capas de la aplicación y su relación con Firebase y los servicios externos.</div>
+  </div>
+
+  <h2>4.1 Flujo de una operación (agregar canción)</h2>
+  <ol>
+    <li>El administrador llena el formulario en <code>SongFormScreen</code>; los validadores verifican los campos obligatorios y el formato de los enlaces.</li>
+    <li>La pantalla construye un objeto <code>Song</code> y llama a <code>backend.saveSong()</code>.</li>
+    <li><code>FirebaseBackend</code> convierte el objeto con <code>toMap()</code> y lo envía a la colección <code>songs</code> de Firestore.</li>
+    <li>Las reglas de seguridad verifican que el correo del usuario autenticado esté en la lista de administradores.</li>
+    <li>Firestore notifica el cambio por el <code>Stream</code> de canciones; <code>AppState</code> actualiza su lista y llama a <code>notifyListeners()</code>.</li>
+    <li>Todas las pantallas que observan el estado se redibujan con la nueva canción, en todos los dispositivos conectados.</li>
+  </ol>
+</div>
+
+<!-- ============================ 5. PATRONES ============================ -->
+<div class="section">
+  <h1>5. Propuesta de patrones de diseño</h1>
+  <table>
+    <tr><th style="width:17%">Patrón</th><th style="width:13%">Tipo</th><th style="width:30%">Dónde se aplica</th><th>Justificación</th></tr>
+    <tr><td><b>Repository</b></td><td>Arquitectónico</td><td>Interfaz <code>Backend</code> (<code>lib/services/backend.dart</code>)</td><td>Aísla el acceso a datos. Las pantallas piden “las canciones” sin saber si vienen de Firestore o del teléfono.</td></tr>
+    <tr><td><b>Strategy</b></td><td>Comportamiento</td><td><code>FirebaseBackend</code> / <code>LocalBackend</code>, elegido en <code>main.dart</code></td><td>Permite cambiar el algoritmo de persistencia en tiempo de ejecución: si Firebase no inicializa, se usa la estrategia local (modo demo).</td></tr>
+    <tr><td><b>Observer</b></td><td>Comportamiento</td><td><code>Stream</code> de Firestore, <code>ChangeNotifier</code> y <code>Consumer</code>/<code>context.watch</code></td><td>Las vistas se suscriben al estado y se actualizan automáticamente cuando cambian los datos, sin recargar manualmente.</td></tr>
+    <tr><td><b>MVVM</b></td><td>Arquitectónico</td><td>Vistas (<code>screens</code>) + ViewModel (<code>AppState</code>) + Modelo (<code>Song</code>)</td><td>Separa la lógica de presentación de la interfaz; las pantallas solo dibujan y delegan acciones.</td></tr>
+    <tr><td><b>Inyección de dependencias (Provider)</b></td><td>Estructural</td><td><code>ChangeNotifierProvider</code> en <code>MiApp</code></td><td>El backend se crea una vez y se inyecta en <code>AppState</code>; las pantallas lo obtienen del árbol de widgets. Facilita sustituirlo por un doble de prueba.</td></tr>
+    <tr><td><b>Factory Method</b></td><td>Creacional</td><td><code>Song.fromMap()</code>, <code>_createBackend()</code></td><td>Centraliza la creación de objetos a partir de documentos de Firestore o de JSON, con valores por defecto seguros.</td></tr>
+    <tr><td><b>Singleton</b></td><td>Creacional</td><td><code>FirebaseAuth.instance</code>, <code>FirebaseFirestore.instance</code></td><td>Una sola conexión compartida con Firebase en toda la app.</td></tr>
+    <tr><td><b>Composite</b></td><td>Estructural</td><td>Árbol de widgets de Flutter</td><td>Las pantallas se componen de widgets reutilizables (<code>SongCard</code>, <code>SongImage</code>, <code>OsmMap</code>, <code>AudioPlayerCard</code>).</td></tr>
+    <tr><td><b>Actualización optimista</b></td><td>Patrón de UI</td><td><code>AppState.toggleFavorite()</code></td><td>El corazón de favorito cambia al instante y la escritura en el servidor ocurre en segundo plano, mejorando la percepción de velocidad.</td></tr>
+  </table>
+
+  <h2>5.1 Ejemplo: Repository + Strategy</h2>
+<pre>abstract class Backend {                       // Repository (contrato)
+  Stream&lt;List&lt;Song&gt;&gt; songs();
+  Future&lt;void&gt; saveSong(Song song);
+  Future&lt;void&gt; setFavorite(String uid, String songId, bool fav);
+  ...
+}
+class FirebaseBackend implements Backend { ... }   // Estrategia 1: nube
+class LocalBackend    implements Backend { ... }   // Estrategia 2: modo demo
+
+Future&lt;Backend&gt; _createBackend() async {         // Selección en tiempo de ejecución
+  try { await Firebase.initializeApp(); return FirebaseBackend(); }
+  catch (_) { final l = LocalBackend(); await l.init(); return l; }
+}</pre>
+</div>
+
+<!-- ============================ 6. FRAMEWORKS ============================ -->
+<div class="section">
+  <h1>6. Justificación de los frameworks de desarrollo móvil</h1>
+
+  <h2>6.1 Comparativa de opciones</h2>
+  <table>
+    <tr><th style="width:18%">Criterio</th><th>Flutter (elegido)</th><th>React Native</th><th>Nativo (Kotlin)</th></tr>
+    <tr><td>Lenguaje</td><td>Dart</td><td>JavaScript / TypeScript</td><td>Kotlin</td></tr>
+    <tr><td>Multiplataforma</td><td>Android, iOS, Web y escritorio con un solo código</td><td>Android e iOS</td><td>Solo Android</td></tr>
+    <tr><td>Rendimiento</td><td>Alto: compilado a código nativo (AOT) y motor de render propio</td><td>Bueno, con puente o JSI hacia componentes nativos</td><td>Máximo</td></tr>
+    <tr><td>Interfaz</td><td>Material 3 incluido; idéntica en todos los dispositivos</td><td>Depende de componentes nativos de cada plataforma</td><td>Jetpack Compose</td></tr>
+    <tr><td>Productividad</td><td>Hot reload, tipado fuerte, analizador integrado</td><td>Fast refresh</td><td>Más código por pantalla</td></tr>
+    <tr><td>Integración con Firebase</td><td>Plugins oficiales (FlutterFire)</td><td>Librería de terceros (React Native Firebase)</td><td>SDK oficial</td></tr>
+  </table>
+
+  <h2>6.2 Frameworks y librerías seleccionados</h2>
+  <table>
+    <tr><th style="width:24%">Framework / paquete</th><th style="width:12%">Versión</th><th>Uso y justificación</th></tr>
+    <tr><td><b>Flutter SDK</b></td><td>3.44.2</td><td>Framework principal de UI. Un solo código base, rendimiento nativo y Material 3 para un diseño moderno con tema oscuro.</td></tr>
+    <tr><td><b>Dart</b></td><td>3.12.2</td><td>Lenguaje con <i>null safety</i>, que evita errores por valores nulos desde la compilación.</td></tr>
+    <tr><td>firebase_core</td><td>^4.15.0</td><td>Inicialización de Firebase en la app.</td></tr>
+    <tr><td>firebase_auth</td><td>^6.7.0</td><td>Inicio de sesión con Google (<code>signInWithProvider</code>) sin administrar contraseñas.</td></tr>
+    <tr><td>cloud_firestore</td><td>^6.10.0</td><td>Base de datos NoSQL en tiempo real, con soporte sin conexión (caché local).</td></tr>
+    <tr><td>provider</td><td>^6.1.5</td><td>Gestión de estado recomendada por el equipo de Flutter; sencilla para un proyecto de este tamaño.</td></tr>
+    <tr><td>shared_preferences</td><td>^2.5.6</td><td>Almacenamiento local clave-valor para el modo demo.</td></tr>
+    <tr><td>image_picker</td><td>^1.2.3</td><td>Seleccionar imagen desde galería o cámara, con compresión integrada.</td></tr>
+    <tr><td>audioplayers</td><td>^6.8.1</td><td>Reproducción de audio por URL con controles de reproducción, pausa y avance.</td></tr>
+    <tr><td>flutter_map + latlong2</td><td>^8.3.2 / ^0.10.1</td><td>Mapas con OpenStreetMap: gratuitos y sin clave de API (a diferencia de Google Maps).</td></tr>
+    <tr><td>url_launcher</td><td>^6.3.3</td><td>Abrir enlaces de YouTube o Spotify en su aplicación.</td></tr>
+    <tr><td>flutter_lints</td><td>^6.0.0</td><td>Reglas de estilo y buenas prácticas verificadas por <code>flutter analyze</code>.</td></tr>
+    <tr><td>flutter_test</td><td>SDK</td><td>Pruebas unitarias y de widgets.</td></tr>
+  </table>
+
+  <h2>6.3 Backend: ¿por qué Firebase?</h2>
+  <ul>
+    <li>Inicio de sesión con Google integrado: requisito principal del caso de estudio.</li>
+    <li>Plan gratuito (Spark) suficiente para el volumen esperado del proyecto.</li>
+    <li>Reglas de seguridad declarativas que permiten implementar los roles de administrador y usuario sin un servidor propio.</li>
+    <li>Alternativas descartadas: una API propia (Node.js/PHP + MySQL) exigiría hospedaje y mantenimiento; Supabase es viable, pero su integración con el inicio de sesión de Google en Android requiere más configuración.</li>
+  </ul>
+</div>
+
+<!-- ============================ 7. PRUEBAS ============================ -->
+<div class="section">
+  <h1>7. Esquema de pruebas</h1>
+
+  <h2>7.1 Niveles de prueba</h2>
+  <div class="figure">
+  <svg viewBox="0 0 520 210" width="520" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial" font-size="11">
+    <polygon points="260,8 330,58 190,58" fill="#8e1b1b"/>
+    <text x="260" y="48" text-anchor="middle" fill="#fff" font-weight="600" font-size="10">Manual</text>
+    <polygon points="190,62 330,62 380,100 140,100" fill="#b23a3a"/>
+    <text x="260" y="86" text-anchor="middle" fill="#fff" font-weight="600">Integración (E2E)</text>
+    <polygon points="140,104 380,104 430,145 90,145" fill="#d46a6a"/>
+    <text x="260" y="130" text-anchor="middle" fill="#fff" font-weight="600">Widgets</text>
+    <polygon points="90,149 430,149 485,195 35,195" fill="#ec9e9e"/>
+    <text x="260" y="177" text-anchor="middle" font-weight="600">Unitarias (modelo, estado, validaciones)</text>
+  </svg>
+  <div class="caption">Figura 3. Pirámide de pruebas: muchas pruebas rápidas en la base y pocas pruebas costosas en la cima.</div>
+  </div>
+
+  <table>
+    <tr><th style="width:16%">Nivel</th><th style="width:22%">Herramienta</th><th>Qué se prueba</th></tr>
+    <tr><td><b>Análisis estático</b></td><td><code>flutter analyze</code> + flutter_lints</td><td>Errores de tipos, código no usado y malas prácticas. Se ejecuta antes de cada commit.</td></tr>
+    <tr><td><b>Unitarias</b></td><td><code>flutter_test</code></td><td>Serialización de <code>Song</code> (<code>toMap</code>/<code>fromMap</code>), validadores del formulario (año, URL, campos obligatorios), función <code>isAdminEmail</code>, lógica de favoritos de <code>AppState</code> con <code>LocalBackend</code>.</td></tr>
+    <tr><td><b>Widgets</b></td><td><code>flutter_test</code> (<code>testWidgets</code>)</td><td>Que la pantalla de login muestre los botones correctos según el modo; que el formulario muestre errores si faltan campos; que el botón “Agregar” solo aparezca para administradores.</td></tr>
+    <tr><td><b>Integración</b></td><td><code>integration_test</code> en dispositivo</td><td>Flujo completo: iniciar sesión (modo demo) → agregar canción → verla en el listado → marcar favorito → verla en Favoritos.</td></tr>
+    <tr><td><b>Reglas de seguridad</b></td><td>Firebase Emulator Suite</td><td>Que un usuario no administrador reciba <i>permission-denied</i> al escribir en <code>songs</code>, y que nadie lea los favoritos de otro usuario.</td></tr>
+    <tr><td><b>Manuales / aceptación</b></td><td>Teléfono físico Android 16</td><td>Casos de prueba de la sección 7.2, con capturas como evidencia.</td></tr>
+  </table>
+
+  <h2>7.2 Casos de prueba manuales</h2>
+  <table>
+    <tr><th style="width:7%">ID</th><th style="width:25%">Caso</th><th style="width:34%">Pasos</th><th>Resultado esperado</th></tr>
+    <tr><td>CP-01</td><td>Inicio de sesión como usuario</td><td>Tocar “Continuar con Google” y elegir una cuenta no administradora.</td><td>Entra al listado sin etiqueta ADMIN ni botón “Agregar”.</td></tr>
+    <tr><td>CP-02</td><td>Inicio de sesión como administrador</td><td>Iniciar sesión con un correo de la lista de administradores.</td><td>Aparecen la etiqueta ADMIN y el botón “Agregar”.</td></tr>
+    <tr><td>CP-03</td><td>Agregar canción</td><td>Llenar el formulario con imagen y ubicación y tocar “Agregar canción”.</td><td>Mensaje “Canción agregada”; aparece en el listado y en Firestore.</td></tr>
+    <tr><td>CP-04</td><td>Validación del formulario</td><td>Dejar vacío el nombre o escribir un enlace sin <code>https://</code>.</td><td>Los campos se marcan en rojo y no se guarda.</td></tr>
+    <tr><td>CP-05</td><td>Editar canción</td><td>En el detalle, tocar el lápiz, cambiar el año y guardar.</td><td>El cambio se refleja de inmediato en el detalle y en el listado.</td></tr>
+    <tr><td>CP-06</td><td>Eliminar canción</td><td>Tocar el bote de basura y confirmar.</td><td>La canción desaparece del listado y del mapa.</td></tr>
+    <tr><td>CP-07</td><td>Favoritos</td><td>Tocar el corazón, cerrar sesión y volver a entrar.</td><td>La canción sigue en la pestaña Favoritos.</td></tr>
+    <tr><td>CP-08</td><td>Reproducir audio</td><td>Abrir una canción con enlace mp3 y tocar reproducir.</td><td>Se escucha el audio y avanza la barra de progreso.</td></tr>
+    <tr><td>CP-09</td><td>Enlace externo</td><td>Tocar “Escuchar en YouTube / Spotify”.</td><td>Se abre la aplicación correspondiente.</td></tr>
+    <tr><td>CP-10</td><td>Mapa</td><td>Abrir la pestaña Mapa y tocar un marcador.</td><td>Se abre el detalle de esa canción.</td></tr>
+    <tr><td>CP-11</td><td>Búsqueda</td><td>Escribir parte del nombre de un suceso.</td><td>Solo se muestran las canciones que coinciden.</td></tr>
+    <tr><td>CP-12</td><td>Seguridad</td><td>Intentar escribir en <code>songs</code> con una cuenta no autorizada.</td><td>Firestore rechaza con <i>permission-denied</i>.</td></tr>
+  </table>
+
+  <h2>7.3 Registro de defectos encontrados</h2>
+  <table>
+    <tr><th style="width:30%">Defecto</th><th style="width:30%">Causa</th><th>Solución</th></tr>
+    <tr><td>La compilación de Android se detenía (JVM sin memoria).</td><td>Gradle reservaba 8 GB de RAM.</td><td>Se redujo a 3 GB en <code>gradle.properties</code>.</td></tr>
+    <tr><td>Error <code>CONFIGURATION_NOT_FOUND</code> al iniciar sesión.</td><td>El proveedor de Google no estaba habilitado en Firebase Authentication.</td><td>Se habilitó Google y se volvió a descargar <code>google-services.json</code>.</td></tr>
+    <tr><td><code>PERMISSION_DENIED</code> al guardar una canción.</td><td>Las reglas de Firestore no estaban publicadas.</td><td>Se publicaron las reglas con la lista de administradores.</td></tr>
+  </table>
+
+  <h2>7.4 Ejemplo de prueba unitaria implementada</h2>
+<pre>test('Song se serializa y deserializa', () {
+  final s = Song(id: 'x', title: 'Burka azul', artist: 'Banda', year: 2001,
+                 latitude: 34.5, longitude: 69.2, createdAt: DateTime(2024));
+  final back = Song.fromMap('x', s.toMap());
+  expect(back.title, 'Burka azul');
+  expect(back.year, 2001);
+  expect(back.hasLocation, isTrue);
+});</pre>
+  <p>Comandos de ejecución: <code>flutter analyze</code> · <code>flutter test</code> · <code>flutter test integration_test</code>.</p>
+</div>
+
+<!-- ============================ 8. VERSIONAMIENTO ============================ -->
+<div class="section">
+  <h1>8. Estrategia de versionamiento</h1>
+
+  <h2>8.1 Control de versiones del código</h2>
+  <p>Se utiliza <b>Git</b> (2.52) con repositorio remoto en <b>GitHub</b>, siguiendo un modelo <b>Git Flow simplificado</b>, adecuado para un desarrollador individual:</p>
+  <div class="figure">
+  <svg viewBox="0 0 640 190" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial" font-size="11">
+    <text x="8" y="34" font-weight="700">main</text>
+    <text x="8" y="94" font-weight="700">develop</text>
+    <text x="8" y="154" font-weight="700">feature/*</text>
+    <line x1="70" y1="30" x2="630" y2="30" stroke="#8e1b1b" stroke-width="3"/>
+    <line x1="70" y1="90" x2="630" y2="90" stroke="#3b5ba5" stroke-width="3"/>
+    <path d="M140,90 C160,150 170,150 190,150 L270,150 C290,150 300,150 320,90" stroke="#2e7d32" stroke-width="3" fill="none"/>
+    <path d="M350,90 C370,150 380,150 400,150 L440,150 C460,150 470,150 490,90" stroke="#2e7d32" stroke-width="3" fill="none"/>
+    <path d="M520,90 C540,40 550,30 570,30" stroke="#3b5ba5" stroke-width="3" fill="none"/>
+    <g fill="#fff" stroke-width="2.5">
+      <circle cx="90" cy="30" r="7" stroke="#8e1b1b"/><circle cx="570" cy="30" r="7" stroke="#8e1b1b"/>
+      <circle cx="110" cy="90" r="6" stroke="#3b5ba5"/><circle cx="320" cy="90" r="6" stroke="#3b5ba5"/><circle cx="490" cy="90" r="6" stroke="#3b5ba5"/>
+      <circle cx="210" cy="150" r="6" stroke="#2e7d32"/><circle cx="250" cy="150" r="6" stroke="#2e7d32"/><circle cx="420" cy="150" r="6" stroke="#2e7d32"/>
+    </g>
+    <text x="90" y="16" text-anchor="middle" font-size="10">v0.1.0</text>
+    <text x="570" y="16" text-anchor="middle" font-size="10">v1.0.0</text>
+    <text x="230" y="176" text-anchor="middle" font-size="10">feature/login-google</text>
+    <text x="420" y="176" text-anchor="middle" font-size="10">feature/form-admin</text>
+    <text x="540" y="54" font-size="10" fill="#3b5ba5" text-anchor="end">release</text>
+  </svg>
+  <div class="caption">Figura 4. Flujo de ramas: las funcionalidades se desarrollan en ramas feature y se integran a develop; las versiones estables se publican en main con una etiqueta.</div>
+  </div>
+  <table>
+    <tr><th style="width:22%">Rama</th><th>Propósito</th></tr>
+    <tr><td><code>main</code></td><td>Código estable y entregable. Cada versión publicada se marca con una etiqueta (<code>v1.0.0</code>).</td></tr>
+    <tr><td><code>develop</code></td><td>Integración de funcionalidades terminadas (columna “Terminado” del tablero Kanban).</td></tr>
+    <tr><td><code>feature/&lt;nombre&gt;</code></td><td>Una rama por tarjeta Kanban, por ejemplo <code>feature/K-08-favoritos</code>.</td></tr>
+    <tr><td><code>hotfix/&lt;nombre&gt;</code></td><td>Correcciones urgentes sobre <code>main</code>, que después se integran también a <code>develop</code>.</td></tr>
+  </table>
+
+  <h3>Convención de mensajes de commit (Conventional Commits)</h3>
+<pre>feat: agregar formulario de canciones para administrador
+fix: corregir permiso al guardar canción en Firestore
+docs: documentar configuración de Firebase
+test: agregar prueba de serialización de Song
+chore: reducir memoria de Gradle a 3 GB</pre>
+
+  <h2>8.2 Versionamiento de la aplicación (SemVer)</h2>
+  <p>La versión se define en <code>pubspec.yaml</code> con el formato <code>MAYOR.MENOR.PARCHE+COMPILACIÓN</code>. Actualmente: <code>version: 1.0.0+1</code>.</p>
+  <table>
+    <tr><th style="width:18%">Componente</th><th>Cuándo se incrementa</th><th style="width:22%">Ejemplo</th></tr>
+    <tr><td><b>MAYOR</b></td><td>Cambios incompatibles, por ejemplo una nueva estructura de la base de datos que requiere migración.</td><td>1.4.2 → 2.0.0</td></tr>
+    <tr><td><b>MENOR</b></td><td>Nueva funcionalidad compatible, por ejemplo agregar comentarios o notificaciones.</td><td>1.0.0 → 1.1.0</td></tr>
+    <tr><td><b>PARCHE</b></td><td>Corrección de errores sin cambiar funcionalidades.</td><td>1.1.0 → 1.1.1</td></tr>
+    <tr><td><b>+COMPILACIÓN</b></td><td>Se incrementa en cada APK/AAB generado. En Android corresponde a <code>versionCode</code> y debe ser siempre mayor que el anterior para publicar en Google Play.</td><td>+1 → +2</td></tr>
+  </table>
+  <h3>Proceso de liberación</h3>
+  <ol>
+    <li>Actualizar <code>version</code> en <code>pubspec.yaml</code> y registrar los cambios en <code>CHANGELOG.md</code>.</li>
+    <li>Ejecutar <code>flutter analyze</code> y <code>flutter test</code> (todo en verde).</li>
+    <li>Integrar <code>develop</code> en <code>main</code> y crear la etiqueta: <code>git tag v1.0.0</code>.</li>
+    <li>Generar el instalable: <code>flutter build apk --release</code> (o <code>appbundle</code> para Google Play).</li>
+  </ol>
+</div>
+
+<!-- ============================ 9. ENTORNO ============================ -->
+<div class="section">
+  <h1>9. Configuración del entorno</h1>
+
+  <h2>9.1 Lista de herramientas utilizadas</h2>
+  <table>
+    <tr><th style="width:27%">Herramienta</th><th style="width:22%">Versión</th><th>Uso</th></tr>
+    <tr><td>Windows 11 Home</td><td>25H2 (10.0.26200)</td><td>Sistema operativo de desarrollo.</td></tr>
+    <tr><td>Flutter SDK (canal stable)</td><td>3.44.2</td><td>Framework de desarrollo; instalado en <code>C:\flutter</code>.</td></tr>
+    <tr><td>Dart SDK</td><td>3.12.2</td><td>Lenguaje de programación (incluido en Flutter).</td></tr>
+    <tr><td>Flutter DevTools</td><td>2.57.0</td><td>Depuración, inspector de widgets y rendimiento.</td></tr>
+    <tr><td>Visual Studio Code</td><td>Última estable</td><td>Editor de código con extensiones Flutter y Dart.</td></tr>
+    <tr><td>Android SDK</td><td>36.1.0</td><td>Plataforma <code>android-36.1</code> y build-tools 36.1.0.</td></tr>
+    <tr><td>Android Platform Tools (adb)</td><td>Incluido en el SDK</td><td>Instalación y registros (<code>logcat</code>) en el teléfono.</td></tr>
+    <tr><td>Android Emulator</td><td>37.1.11</td><td>Emulación opcional (se usó principalmente un dispositivo físico).</td></tr>
+    <tr><td>Java JDK (Eclipse Temurin)</td><td>21.0.11</td><td>Requerido por Gradle para compilar Android.</td></tr>
+    <tr><td>Gradle</td><td>9.1.0</td><td>Sistema de compilación de Android.</td></tr>
+    <tr><td>Android Gradle Plugin</td><td>9.0.1</td><td>Plugin de compilación de Android.</td></tr>
+    <tr><td>Kotlin Gradle Plugin</td><td>2.3.20</td><td>Compilación del código Kotlin de los plugins.</td></tr>
+    <tr><td>Google Services Plugin</td><td>4.4.4</td><td>Lee <code>google-services.json</code> para conectar con Firebase.</td></tr>
+    <tr><td>Firebase Console</td><td>Web</td><td>Proyecto <code>canciones-con-historia</code>: Authentication, Firestore y reglas.</td></tr>
+    <tr><td>Git</td><td>2.52.0</td><td>Control de versiones.</td></tr>
+    <tr><td>GitHub / GitHub Projects</td><td>Web</td><td>Repositorio remoto y tablero Kanban.</td></tr>
+    <tr><td>Node.js</td><td>26.4.0</td><td>Opcional: Firebase CLI y emulador para probar reglas de seguridad.</td></tr>
+    <tr><td>Google Chrome / Edge</td><td>154</td><td>Ejecución web de pruebas y consola de Firebase.</td></tr>
+    <tr><td>Dispositivo de pruebas</td><td>Xiaomi 2311DRK48G, Android 16 (API 36)</td><td>Pruebas en teléfono físico por USB.</td></tr>
+  </table>
+
+  <h2>9.2 Parámetros de configuración</h2>
+
+  <h3>a) Proyecto Flutter (<code>pubspec.yaml</code>)</h3>
+<pre>name: mi_app
+version: 1.0.0+1
+environment:
+  sdk: ^3.12.2
+dependencies:
+  firebase_core: ^4.15.0      cloud_firestore: ^6.10.0
+  firebase_auth: ^6.7.0       provider: ^6.1.5+1
+  shared_preferences: ^2.5.6  image_picker: ^1.2.3
+  audioplayers: ^6.8.1        flutter_map: ^8.3.2
+  latlong2: ^0.10.1           url_launcher: ^6.3.3</pre>
+
+  <h3>b) Android (<code>android/app/build.gradle.kts</code>)</h3>
+  <table>
+    <tr><th style="width:32%">Parámetro</th><th>Valor</th></tr>
+    <tr><td><code>applicationId</code> / <code>namespace</code></td><td><code>com.example.mi_app</code> (debe coincidir con el registrado en Firebase)</td></tr>
+    <tr><td><code>compileSdk</code>, <code>targetSdk</code>, <code>minSdk</code></td><td>Valores por defecto de Flutter 3.44 (<code>flutter.compileSdkVersion</code>, etc.)</td></tr>
+    <tr><td>Compatibilidad Java / Kotlin</td><td><code>JavaVersion.VERSION_17</code> / <code>JvmTarget.JVM_17</code></td></tr>
+    <tr><td>Plugin de Google Services</td><td>Se aplica solo si existe <code>google-services.json</code>; si no, la app inicia en modo demo.</td></tr>
+    <tr><td>Firma de release</td><td>Temporalmente con la clave de depuración; para Google Play se creará un <i>keystore</i> propio.</td></tr>
+  </table>
+<pre>// Firebase: solo se activa cuando existe android/app/google-services.json
+if (file("google-services.json").exists()) {
+    apply(plugin = "com.google.gms.google-services")
+}</pre>
+
+  <h3>c) Gradle (<code>android/gradle.properties</code>)</h3>
+<pre>org.gradle.jvmargs=-Xmx3G -XX:MaxMetaspaceSize=1G -XX:ReservedCodeCacheSize=256m
+kotlin.daemon.jvmargs=-Xmx1536m
+android.useAndroidX=true</pre>
+  <p>La memoria se limitó a 3 GB porque con la configuración por defecto (8 GB) la máquina virtual de Java se quedaba sin memoria durante la compilación.</p>
+
+  <h3>d) Manifiesto (<code>AndroidManifest.xml</code>)</h3>
+  <table>
+    <tr><th style="width:32%">Parámetro</th><th>Valor / motivo</th></tr>
+    <tr><td><code>uses-permission INTERNET</code></td><td>Firebase, mapas y audio por URL.</td></tr>
+    <tr><td><code>android:label</code></td><td>“Canciones con Historia”.</td></tr>
+    <tr><td><code>queries → VIEW https</code></td><td>Necesario en Android 11+ para que <code>url_launcher</code> abra YouTube/Spotify.</td></tr>
+  </table>
+
+  <h3>e) Firebase</h3>
+  <table>
+    <tr><th style="width:32%">Parámetro</th><th>Valor</th></tr>
+    <tr><td>Proyecto</td><td><code>canciones-con-historia</code> (plan Spark, gratuito)</td></tr>
+    <tr><td>App Android registrada</td><td>Paquete <code>com.example.mi_app</code></td></tr>
+    <tr><td>Huella SHA-1 (depuración)</td><td><code>55:29:9E:73:C9:89:09:F5:CF:AC:37:1F:39:B4:A2:CE:11:69:82:D3</code></td></tr>
+    <tr><td>Archivo de configuración</td><td><code>android/app/google-services.json</code> (no se sube a repositorios públicos)</td></tr>
+    <tr><td>Authentication</td><td>Proveedor <b>Google</b> habilitado</td></tr>
+    <tr><td>Cloud Firestore</td><td>Edición Standard, base de datos <code>(default)</code>, modo producción</td></tr>
+    <tr><td>Administradores</td><td>Lista de 3 correos en <code>lib/config.dart</code> y en <code>firestore.rules</code> (deben coincidir)</td></tr>
+  </table>
+
+  <h3>f) Reglas de seguridad (<code>firestore.rules</code>)</h3>
+<pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null &&
+        request.auth.token.email in [ /* correos de administradores */ ];
+    }
+    match /songs/{songId} {
+      allow read:  if request.auth != null;   // cualquier usuario con sesión
+      allow write: if isAdmin();              // solo administradores
+    }
+    match /users/{uid} {                       // favoritos de cada usuario
+      allow read, write: if request.auth != null &amp;&amp; request.auth.uid == uid;
+    }
+  }
+}</pre>
+
+  <h3>g) Comandos principales</h3>
+  <table>
+    <tr><th style="width:42%">Comando</th><th>Función</th></tr>
+    <tr><td><code>flutter pub get</code></td><td>Descargar dependencias.</td></tr>
+    <tr><td><code>flutter devices</code></td><td>Listar dispositivos conectados.</td></tr>
+    <tr><td><code>flutter run -d &lt;id&gt;</code></td><td>Ejecutar la app en un dispositivo.</td></tr>
+    <tr><td><code>flutter analyze</code></td><td>Análisis estático.</td></tr>
+    <tr><td><code>flutter test</code></td><td>Ejecutar pruebas.</td></tr>
+    <tr><td><code>flutter build apk --release</code></td><td>Generar el instalable APK.</td></tr>
+    <tr><td><code>keytool -list -v -keystore %USERPROFILE%\.android\debug.keystore</code></td><td>Obtener la huella SHA-1 para Firebase (contraseña <code>android</code>).</td></tr>
+  </table>
+
+  <h3>h) Estructura del proyecto</h3>
+<pre>mi_app/
+├── android/app/google-services.json   ← configuración de Firebase
+├── lib/
+│   ├── main.dart                      ← arranque y selección de backend
+│   ├── config.dart                    ← correos de administradores
+│   ├── theme.dart                     ← tema oscuro (Material 3)
+│   ├── models/song.dart               ← Song, AppUser
+│   ├── services/backend.dart          ← Backend, FirebaseBackend, LocalBackend
+│   ├── services/seed_songs.dart       ← datos de ejemplo (modo demo)
+│   ├── state/app_state.dart           ← estado global (ChangeNotifier)
+│   ├── screens/                       ← login, home, detalle, formulario, mapa
+│   └── widgets/                       ← tarjetas, mapa, reproductor
+├── test/widget_test.dart              ← pruebas
+├── firestore.rules                    ← reglas de seguridad
+└── pubspec.yaml                       ← dependencias y versión</pre>
+</div>
+
+<!-- ============================ 10. CONCLUSIONES ============================ -->
+<div class="section">
+  <h1>10. Conclusiones</h1>
+  <p>El proyecto <b>Canciones con Historia</b> demuestra que una aplicación móvil completa —con autenticación, roles, base de datos en tiempo real, multimedia y mapas— puede desarrollarse de forma individual y sin costo gracias a la combinación de Flutter y Firebase.</p>
+  <p>Kanban resultó adecuado para un desarrollador individual: permitió visualizar el avance, atender de inmediato las tareas bloqueantes (configuración de Firebase, reglas de seguridad, memoria de compilación) y mantener un flujo continuo sin la sobrecarga de ceremonias de otras metodologías.</p>
+  <p>La arquitectura en capas y los patrones Repository, Strategy y Observer dieron como resultado un código desacoplado: la interfaz no depende de Firebase, lo que permitió desarrollar primero en modo demo y facilita tanto las pruebas como futuras extensiones.</p>
+  <p>Como trabajo futuro se plantea completar las pruebas de widgets e integración, firmar la aplicación con una clave propia para publicarla en Google Play, y agregar funciones como comentarios de usuarios, notificaciones de nuevas canciones y una versión para iOS.</p>
+</div>
+
+</body>
+</html>
