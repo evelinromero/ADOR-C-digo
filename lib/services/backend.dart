@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,21 +56,51 @@ class FirebaseBackend implements Backend {
         );
       });
 
+
   @override
   Future<void> signInWithGoogle() async {
-    final provider = GoogleAuthProvider()..addScope('email');
-    final cred = kIsWeb
-        ? await _auth.signInWithPopup(provider)
-        : await _auth.signInWithProvider(provider);
-    final u = cred.user;
-    if (u != null) {
-      await _db.collection('users').doc(u.uid).set({
-        'name': u.displayName,
-        'email': u.email,
+    UserCredential cred;
+
+    if (kIsWeb) {
+      final provider = GoogleAuthProvider()..addScope('email');
+      cred = await _auth.signInWithPopup(provider);
+    } else {
+      final googleSignIn = GoogleSignIn.instance;
+
+      await googleSignIn.initialize(
+        serverClientId: '87979743586-4dn2ncelggmmri411e17gkh1nat6ih06.apps.googleusercontent.com',
+      );
+
+      final googleUser = await googleSignIn.authenticate();
+
+      final googleAuth = googleUser.authentication;
+      final idToken = googleAuth.idToken;
+
+      if (idToken == null) {
+        throw Exception(
+          'Google no devolvió un token de autenticación. '
+          'Verifica la configuración de Firebase y SHA-1.',
+        );
+      }
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: idToken,
+      );
+
+      cred = await _auth.signInWithCredential(credential);
+    }
+
+    final user = cred.user;
+
+    if (user != null) {
+      await _db.collection('users').doc(user.uid).set({
+        'name': user.displayName,
+        'email': user.email,
         'lastLogin': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
     }
   }
+
 
   @override
   Future<void> signInDemo({required bool admin}) =>

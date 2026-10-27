@@ -1,44 +1,45 @@
 {
   "project_info": {
-    "project_number": "343423689284",
-    "project_id": "canciones-con-historia",
-    "storage_bucket": "canciones-con-historia.firebasestorage.app"
+    "project_number": "87979743586",
+    "project_id": "ador-19d99",
+    "storage_bucket": "ador-19d99.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:343423689284:android:049dfbbbdc3477f2e5d211",
+        "mobilesdk_app_id": "1:87979743586:android:455c9bd34145575d33b43b",
         "android_client_info": {
-          "package_name": "com.example.mi_app"
+          "package_name": "com.example.ador"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "343423689284-phrd31qbhid8728qs2rc9nm62a9agq1c.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.mi_app",
-            "certificate_hash": "55299e73c98909f5cfac371f39b4a2ce116982d3"
-          }
-        },
-        {
-          "client_id": "343423689284-9l2h0d1rc365bqs1fc03a8iv5e4gpl00.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDkBBXiyaBTm5crd4GsgVd_utIeWXrNurY"
+          "current_key": "AIzaSyBo-TKsQffB3eIfsMylymM5-SXB745RmBI"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "343423689284-9l2h0d1rc365bqs1fc03a8iv5e4gpl00.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87979743586:android:83c20fdd2217bc8233b43b",
+        "android_client_info": {
+          "package_name": "com.example.mi_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo-TKsQffB3eIfsMylymM5-SXB745RmBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }
